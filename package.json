@@ -31,5 +31,8 @@
   ],
   "directories": {
     "test": "tests"
+  },
+  "dependencies": {
+    "superstruct": "^0.6.1"
   }
 }
