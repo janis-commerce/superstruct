@@ -33,6 +33,7 @@
     "test": "tests"
   },
   "dependencies": {
+    "cron-parser": "^2.12.0",
     "superstruct": "^0.6.1"
   }
 }
