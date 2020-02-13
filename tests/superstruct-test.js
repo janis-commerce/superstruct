@@ -2,7 +2,7 @@
 
 const assert = require('assert');
 const crypto = require('crypto');
-const { struct } = require('./../lib');
+const { struct } = require('../lib');
 
 describe('Superstruct', () => {
 	describe('email', () => {
@@ -164,14 +164,12 @@ describe('Superstruct', () => {
 
 		});
 
-		/* it('Should throw for non lowercased strings', () => {
-
-			assert.throws(() => Schema({ string: 'a' }), Error);
-			assert.throws(() => Schema({ string: 'z' }), Error);
-			assert.throws(() => Schema({ string: 'AeA' }), Error);
-			assert.throws(() => Schema({ string: 'eAA' }), Error);
-
-		}); */
+		// it('Should throw for non lowercased strings', () => {
+		// 	assert.throws(() => Schema({ string: 'a' }), 'Must be camelcase');
+		// 	assert.throws(() => Schema({ string: 'z' }), 'Must be camelcase');
+		// 	assert.throws(() => Schema({ string: 'AeA' }), 'Must be camelcase');
+		// 	assert.throws(() => Schema({ string: 'eAA' }), 'Must be camelcase');
+		// });
 	});
 
 	describe('md5', () => {
@@ -185,12 +183,10 @@ describe('Superstruct', () => {
 		const Schema = struct({ md5: 'md5' });
 
 		it('Should not throw for md5 strings', () => {
-
 			Schema({ md5: md5('yes') });
 		});
 
 		it('Should throw for non md5 values', () => {
-
 			assert.throws(() => Schema({ md5: 'asd123asdas123123' }), Error);
 			assert.throws(() => Schema({ md5: '3,5' }), Error);
 			assert.throws(() => Schema({ md5: '' }), Error);
@@ -218,7 +214,6 @@ describe('Superstruct', () => {
 		});
 
 		it('Should throw for non numeric values', () => {
-
 			assert.throws(() => Schema({ numeric: 'a' }), Error);
 			assert.throws(() => Schema({ numeric: '3,5' }), Error);
 			assert.throws(() => Schema({ numeric: '' }), Error);
@@ -227,7 +222,6 @@ describe('Superstruct', () => {
 			assert.throws(() => Schema({ numeric: '123asds' }), Error);
 
 		});
-
 	});
 
 	describe('JSON', () => {
@@ -235,42 +229,17 @@ describe('Superstruct', () => {
 		const Schema = struct({ json: 'JSON' });
 
 		it('Should not throw for valid JSON', () => {
-
 			Schema({ json: JSON.stringify({ foo: 'bar' }) });
 			Schema({ json: JSON.stringify({ foo: ['bar'], bar: 0 }) });
 		});
 
 		it('Should throw for non JSON', () => {
-
 			assert.throws(() => Schema({ json: 'exmaple' }), Error);
 			assert.throws(() => Schema({ json: '{invalid:"json"}' }), Error);
 			assert.throws(() => Schema({ json: { invalid: 'json' } }), Error);
 			assert.throws(() => Schema({ json: '{\'invalid\':0}' }), Error);
-
 		});
 
 	});
 
-	describe('cron expression', () => {
-
-		const Schema = struct({ cron: 'cron' });
-
-		it('Should not throw for cron expressions', () => {
-
-			Schema({ cron: '* * * * *' });
-			Schema({ cron: '* * * * * *' }); // Valid for javascript
-			Schema({ cron: '*/5 * * * *' });
-			Schema({ cron: '*/5 0 1 * *' });
-			Schema({ cron: '0 1 1 1 1' });
-		});
-
-		it('Should throw for non cron values', () => {
-
-			assert.throws(() => Schema({ cron: '0 0 0 0 0 0' }), Error);
-			assert.throws(() => Schema({ cron: '0 0 0 0 0' }), Error);
-			assert.throws(() => Schema({ cron: '30/30' }), Error);
-
-		});
-
-	});
 });
