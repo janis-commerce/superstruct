@@ -164,12 +164,12 @@ describe('Superstruct', () => {
 
 		});
 
-		// it('Should throw for non lowercased strings', () => {
-		// 	assert.throws(() => Schema({ string: 'a' }), 'Must be camelcase');
-		// 	assert.throws(() => Schema({ string: 'z' }), 'Must be camelcase');
-		// 	assert.throws(() => Schema({ string: 'AeA' }), 'Must be camelcase');
-		// 	assert.throws(() => Schema({ string: 'eAA' }), 'Must be camelcase');
-		// });
+		it('Should throw for non camelCase strings', () => {
+			assert.throws(() => Schema({ string: 'AAA' }), Error);
+			assert.throws(() => Schema({ string: 'zzzz asdasd' }), Error);
+			assert.throws(() => Schema({ string: 'aaa-bbb' }), Error);
+			assert.throws(() => Schema({ string: 'aaaa_bbb' }), Error);
+		});
 	});
 
 	describe('md5', () => {
