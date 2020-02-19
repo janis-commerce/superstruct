@@ -5,7 +5,9 @@ const crypto = require('crypto');
 const { struct } = require('../lib');
 
 describe('Superstruct', () => {
+
 	describe('email', () => {
+
 		const Schema = struct({ email: 'email' });
 
 		it('Should not throw for valid emails', () => {
@@ -15,7 +17,6 @@ describe('Superstruct', () => {
 			Schema({ email: 'mock_yes@mock.com' });
 			Schema({ email: 'mock-test@mock.com' });
 			Schema({ email: 'mock09_9.2@mock.com' });
-
 		});
 
 		it('Should throw for invalid emails', () => {
@@ -28,11 +29,11 @@ describe('Superstruct', () => {
 			assert.throws(() => Schema({ email: 0 }), Error);
 			assert.throws(() => Schema({ email: {} }), Error);
 			assert.throws(() => Schema({ email: [] }), Error);
-
 		});
 	});
 
 	describe('URL', () => {
+
 		const Schema = struct({ url: 'URL' });
 
 		it('Should not throw for valid URL', () => {
@@ -52,7 +53,6 @@ describe('Superstruct', () => {
 			assert.throws(() => Schema({ url: '.example.com' }), Error);
 			assert.throws(() => Schema({ url: 'example.com' }), Error);
 			assert.throws(() => Schema({ url: 'www.example.com' }), Error);
-
 		});
 	});
 
@@ -73,7 +73,6 @@ describe('Superstruct', () => {
 			assert.throws(() => Schema({ yes: true }), Error);
 			assert.throws(() => Schema({ yes: 1 }), Error);
 		});
-
 	});
 
 	describe('!empty', () => {
@@ -86,7 +85,6 @@ describe('Superstruct', () => {
 
 			for(const val of values)
 				Schema({ yes: val });
-
 		});
 
 		it('Should throw for empty values', () => {
@@ -98,9 +96,7 @@ describe('Superstruct', () => {
 			assert.throws(() => Schema({ yes: null }), Error);
 			assert.throws(() => Schema({ yes: false }), Error);
 			assert.throws(() => Schema({ yes: 0 }), Error);
-
 		});
-
 	});
 
 	describe('lowercase', () => {
@@ -113,7 +109,6 @@ describe('Superstruct', () => {
 
 			for(const val of values)
 				Schema({ string: val });
-
 		});
 
 		it('Should throw for non lowercased strings', () => {
@@ -122,9 +117,7 @@ describe('Superstruct', () => {
 			assert.throws(() => Schema({ string: 'Z' }), Error);
 			assert.throws(() => Schema({ string: 'AeA' }), Error);
 			assert.throws(() => Schema({ string: 'eAA' }), Error);
-
 		});
-
 	});
 
 	describe('uppercase', () => {
@@ -137,7 +130,6 @@ describe('Superstruct', () => {
 
 			for(const val of values)
 				Schema({ string: val });
-
 		});
 
 		it('Should throw for non lowercased strings', () => {
@@ -146,9 +138,7 @@ describe('Superstruct', () => {
 			assert.throws(() => Schema({ string: 'z' }), Error);
 			assert.throws(() => Schema({ string: 'AeA' }), Error);
 			assert.throws(() => Schema({ string: 'eAA' }), Error);
-
 		});
-
 	});
 
 	describe('camelCase', () => {
@@ -161,7 +151,6 @@ describe('Superstruct', () => {
 
 			for(const val of values)
 				Schema({ string: val });
-
 		});
 
 		it('Should throw for non camelCase strings', () => {
@@ -173,6 +162,7 @@ describe('Superstruct', () => {
 	});
 
 	describe('md5', () => {
+
 		const md5 = string => (
 			crypto
 				.createHash('md5')
@@ -195,9 +185,7 @@ describe('Superstruct', () => {
 			assert.throws(() => Schema({ md5: '123asds' }), Error);
 			assert.throws(() => Schema({ md5: null }), Error);
 			assert.throws(() => Schema({ md5: undefined }), Error);
-
 		});
-
 	});
 
 	describe('numeric', () => {
@@ -210,7 +198,6 @@ describe('Superstruct', () => {
 
 			for(const val of values)
 				Schema({ numeric: val });
-
 		});
 
 		it('Should throw for non numeric values', () => {
@@ -220,7 +207,6 @@ describe('Superstruct', () => {
 			assert.throws(() => Schema({ numeric: '23a' }), Error);
 			assert.throws(() => Schema({ numeric: 'asds' }), Error);
 			assert.throws(() => Schema({ numeric: '123asds' }), Error);
-
 		});
 	});
 
@@ -239,7 +225,31 @@ describe('Superstruct', () => {
 			assert.throws(() => Schema({ json: { invalid: 'json' } }), Error);
 			assert.throws(() => Schema({ json: '{\'invalid\':0}' }), Error);
 		});
+	});
 
+	describe('ISODate', () => {
+
+		const Schema = struct({ ISODate: 'ISODate' });
+
+		it('Should not throw for valid ISODate', () => {
+			Schema({ ISODate: '2020-02-19T23:23:59Z' });
+			Schema({ ISODate: '2020-02-19T23:23:59+03:00' });
+			Schema({ ISODate: '2020-02-19T23:23:59-03:00' });
+			Schema({ ISODate: '2020-02-19T18:11:00.000Z' });
+			Schema({ ISODate: '2020-02-19T23:23:59.666Z' });
+			Schema({ ISODate: '2020-02-29T23:23:59.6668883Z' });
+		});
+
+		it('Should throw for non ISODate', () => {
+			assert.throws(() => Schema({ ISODate: '2020-02-29T23:23:59' }), Error);
+			assert.throws(() => Schema({ ISODate: '2020-02-19T23:23:59.666' }), Error);
+			assert.throws(() => Schema({ ISODate: '2020' }), Error);
+			assert.throws(() => Schema({ ISODate: '2020-02' }), Error);
+			assert.throws(() => Schema({ ISODate: '2020-02-19' }), Error);
+			assert.throws(() => Schema({ ISODate: 'exmaple' }), Error);
+			assert.throws(() => Schema({ ISODate: 'asda123' }), Error);
+			assert.throws(() => Schema({ ISODate: '20201-02-14' }), Error);
+		});
 	});
 
 });
