@@ -12,7 +12,8 @@ describe('Superstruct', () => {
 
 		it('Should not throw for valid emails', () => {
 
-			Schema({ email: 'pepe@fizzmod.com' });
+			Schema({ email: 'pepe@example.com' });
+			Schema({ email: 'pepe+1@example.com' });
 			Schema({ email: 'mock.test@mock.com.foo' });
 			Schema({ email: 'mock_yes@mock.com' });
 			Schema({ email: 'mock-test@mock.com' });
@@ -105,7 +106,7 @@ describe('Superstruct', () => {
 
 		it('Should not throw for lowercased strings', () => {
 
-			const values = ['asda', 'a', 'z', '__a', '1', '--test', ''];
+			const values = ['asda', 'asdá', 'ñato', 'a', 'z', '__a', '1', '--test', ''];
 
 			for(const val of values)
 				Schema({ string: val });
@@ -126,7 +127,7 @@ describe('Superstruct', () => {
 
 		it('Should not throw for uppercase strings', () => {
 
-			const values = ['AA', 'ZZ', 'A', 'Z', '', '--TEST', '12'];
+			const values = ['AA', 'ZZ', 'A', 'Á', 'Ñ', 'Z', '', '--TEST', '12'];
 
 			for(const val of values)
 				Schema({ string: val });
@@ -147,7 +148,7 @@ describe('Superstruct', () => {
 
 		it('Should not throw for camelcase strings', () => {
 
-			const values = ['c', 'caMel', 'caMelCase', 'aAAAs0', 'aAA'];
+			const values = ['c', 'caMel', 'caMelCase', 'aAAAs0', 'aAA', 'bAño', 'agustín'];
 
 			for(const val of values)
 				Schema({ string: val });
@@ -155,6 +156,9 @@ describe('Superstruct', () => {
 
 		it('Should throw for non camelCase strings', () => {
 			assert.throws(() => Schema({ string: 'AAA' }), Error);
+			assert.throws(() => Schema({ string: '14AAA' }), Error);
+			assert.throws(() => Schema({ string: 'Ñato' }), Error);
+			assert.throws(() => Schema({ string: 'Ívan' }), Error);
 			assert.throws(() => Schema({ string: 'zzzz asdasd' }), Error);
 			assert.throws(() => Schema({ string: 'aaa-bbb' }), Error);
 			assert.throws(() => Schema({ string: 'aaaa_bbb' }), Error);
@@ -194,7 +198,7 @@ describe('Superstruct', () => {
 
 		it('Should not throw for numeric values', () => {
 
-			const values = ['1', 2, 2.5, '2.5', '-5', '0', -2, '013'];
+			const values = ['1', 2, 2.5, '2.5', '0.5', 0.5, '-5', '0', -2];
 
 			for(const val of values)
 				Schema({ numeric: val });
@@ -202,6 +206,7 @@ describe('Superstruct', () => {
 
 		it('Should throw for non numeric values', () => {
 			assert.throws(() => Schema({ numeric: 'a' }), Error);
+			assert.throws(() => Schema({ numeric: '013' }), Error);
 			assert.throws(() => Schema({ numeric: '3,5' }), Error);
 			assert.throws(() => Schema({ numeric: '' }), Error);
 			assert.throws(() => Schema({ numeric: '23a' }), Error);
@@ -249,6 +254,11 @@ describe('Superstruct', () => {
 			assert.throws(() => Schema({ ISODate: 'exmaple' }), Error);
 			assert.throws(() => Schema({ ISODate: 'asda123' }), Error);
 			assert.throws(() => Schema({ ISODate: '20201-02-14' }), Error);
+			assert.throws(() => Schema({ ISODate: null }), Error);
+			assert.throws(() => Schema({ ISODate: undefined }), Error);
+			assert.throws(() => Schema({ ISODate: [] }), Error);
+			assert.throws(() => Schema({ ISODate: 1 }), Error);
+			assert.throws(() => Schema({ ISODate: {} }), Error);
 		});
 	});
 

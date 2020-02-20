@@ -14,12 +14,14 @@ The custom types that you can use in addition to the superstruct are:
 - **`email`** This type checks if is a valid email
 - **`URL`** This type checks if is a valid URL
 - **`empty`** This type checks if the string is empty
+- **`!empty`** This type checks if the string is not empty
 - **`lowercase`** This type checks if is a valid lowercase string
 - **`uppercase`** This type checks if is a valid uppercase string
 - **`camelcase`** This type checks if is a valid camelcase string
 - **`numeric`** This type checks if is a valid numeric value
 - **`md5`** This type checks if is a valid md5 hash
-- **`isJSON`** This type checks if is a valid JSON
+- **`JSON`** This type checks if is a valid JSON
+- **`ISODate`** This type checks if is a valid ISO Date
 
 ## Usage
 ```js
