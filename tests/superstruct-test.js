@@ -262,4 +262,156 @@ describe('Superstruct', () => {
 		});
 	});
 
+
+	describe('integer', () => {
+
+		const Schema = struct({ integer: 'integer' });
+
+		it('Should not throw for valid integer', () => {
+			Schema({ integer: -100 });
+			Schema({ integer: 0 });
+			Schema({ integer: 1 });
+			Schema({ integer: 10 });
+			Schema({ integer: 10 });
+			Schema({ integer: 1000 });
+			Schema({ integer: 9808798 });
+			Schema({ integer: '0' });
+			Schema({ integer: '50' });
+		});
+
+		it('Should throw for non integer', () => {
+			assert.throws(() => Schema({ integer: -5.5 }), Error);
+			assert.throws(() => Schema({ integer: 1.5 }), Error);
+			assert.throws(() => Schema({ integer: '0.5' }), Error);
+			assert.throws(() => Schema({ integer: 'string' }), Error);
+			assert.throws(() => Schema({ integer: null }), Error);
+			assert.throws(() => Schema({ integer: undefined }), Error);
+			assert.throws(() => Schema({ integer: [] }), Error);
+			assert.throws(() => Schema({ integer: {} }), Error);
+		});
+	});
+
+	describe('positive', () => {
+
+		const Schema = struct({ positive: 'positive' });
+
+		it('Should not throw for valid positive', () => {
+			Schema({ positive: 0.5 });
+			Schema({ positive: 1 });
+			Schema({ positive: 1.5 });
+			Schema({ positive: 10 });
+			Schema({ positive: 1000 });
+			Schema({ positive: 9808798 });
+			Schema({ positive: '0.5' });
+			Schema({ positive: '10' });
+		});
+
+		it('Should throw for non positive', () => {
+			assert.throws(() => Schema({ positive: 0 }), Error);
+			assert.throws(() => Schema({ positive: -1 }), Error);
+			assert.throws(() => Schema({ positive: 'string' }), Error);
+			assert.throws(() => Schema({ positive: null }), Error);
+			assert.throws(() => Schema({ positive: undefined }), Error);
+			assert.throws(() => Schema({ positive: [] }), Error);
+			assert.throws(() => Schema({ positive: {} }), Error);
+		});
+	});
+
+	describe('positiveOrZero', () => {
+
+		const Schema = struct({ positiveOrZero: 'positiveOrZero' });
+
+		it('Should not throw for valid positive', () => {
+			Schema({ positiveOrZero: 0 });
+			Schema({ positiveOrZero: 0.5 });
+			Schema({ positiveOrZero: 1 });
+			Schema({ positiveOrZero: 1.5 });
+			Schema({ positiveOrZero: 10 });
+			Schema({ positiveOrZero: 1000 });
+			Schema({ positiveOrZero: 9808798 });
+			Schema({ positiveOrZero: '0' });
+			Schema({ positiveOrZero: '0.5' });
+			Schema({ positiveOrZero: '10' });
+		});
+
+		it('Should throw for non positiveOrZero', () => {
+			assert.throws(() => Schema({ positiveOrZero: -1 }), Error);
+			assert.throws(() => Schema({ positiveOrZero: -5.5 }), Error);
+			assert.throws(() => Schema({ positiveOrZero: 'string' }), Error);
+			assert.throws(() => Schema({ positiveOrZero: null }), Error);
+			assert.throws(() => Schema({ positiveOrZero: undefined }), Error);
+			assert.throws(() => Schema({ positiveOrZero: [] }), Error);
+			assert.throws(() => Schema({ positiveOrZero: {} }), Error);
+		});
+	});
+
+
+	describe('Object ID 24 characters', () => {
+		const Schema = struct({ objectId24: 'objectId24' });
+
+		it('Should not throw when it is a valid ObjectId', () => {
+			Schema({ objectId24: '5d4d8f743a3cd7a03d9e6428' });
+		});
+
+		it('Should throw when it is not a string', () => {
+			assert.throws(() => Schema({ objectId24: 123445665475764590823907 }), Error);
+			assert.throws(() => Schema({ objectId24: true }), Error);
+			assert.throws(() => Schema({ objectId24: {} }), Error);
+			assert.throws(() => Schema({ objectId24: ['5d4d8f743a3cd7a03d9e6428'] }), Error);
+		});
+
+		it('Should throw when it is not an hex ID', () => {
+			assert.throws(() => Schema({ objectId24: '1Bcd3F4bCDefA8cdE7aBcdeG' }), Error);
+			assert.throws(() => Schema({ objectId24: '5d4d8f743a3cd7a03d9e642' }), Error);
+			assert.throws(() => Schema({ objectId24: '5d4d8f743a3cd7a03d9e64288' }), Error);
+		});
+	});
+
+	describe('Object ID 12 characters', () => {
+		const Schema = struct({ objectId12: 'objectId12' });
+
+		it('Should not throw when it is a valid ObjectId', () => {
+			Schema({ objectId12: '5d4d8f743a3c' });
+		});
+
+		it('Should throw when it is not a string', () => {
+			assert.throws(() => Schema({ objectId12: 123445665475 }), Error);
+			assert.throws(() => Schema({ objectId12: true }), Error);
+			assert.throws(() => Schema({ objectId12: {} }), Error);
+			assert.throws(() => Schema({ objectId12: ['5d4d8f743a3c'] }), Error);
+		});
+
+		it('Should throw when it is not an hex ID', () => {
+			assert.throws(() => Schema({ objectId12: '5d4d8f743a3cD' }), Error);
+			assert.throws(() => Schema({ objectId12: '5d4d8f743a3Z' }), Error);
+			assert.throws(() => Schema({ objectId12: '5d4d8f743a3' }), Error);
+		});
+	});
+
+
+	describe('UUID', () => {
+		const Schema = struct({ UUID: 'UUID' });
+
+		it('Should not throw when it is a valid v4 UUID', () => {
+			// v4 examples
+			Schema({ UUID: 'a42ad1cd-84d1-4229-bfd6-6e9837c00549' });
+			Schema({ UUID: 'd9d110ce-8b55-4576-91e9-5eac187e8136' });
+		});
+
+		it('Should throw for non v4 UUID', () => {
+			// v1 example
+			assert.throws(() => Schema({ UUID: '1bbf4d30-6498-11ea-bbf5-2db771e23e81' }), Error);
+			// v5 example
+			assert.throws(() => Schema({ UUID: '3bbcee75-cecc-5b56-8031-b6641c1ed1f1' }), Error);
+			// v3 example
+			assert.throws(() => Schema({ UUID: 'c6235813-3ba4-3801-ae84-e0a6ebb7d138' }), Error);
+			assert.throws(() => Schema({ UUID: 1 }), Error);
+			assert.throws(() => Schema({ UUID: 'string' }), Error);
+			assert.throws(() => Schema({ UUID: null }), Error);
+			assert.throws(() => Schema({ UUID: undefined }), Error);
+			assert.throws(() => Schema({ UUID: [] }), Error);
+			assert.throws(() => Schema({ UUID: {} }), Error);
+		});
+	});
+
 });

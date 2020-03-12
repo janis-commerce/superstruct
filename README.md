@@ -22,6 +22,12 @@ The custom types that you can use in addition to the superstruct are:
 - **`md5`** This type checks if is a valid md5 hash
 - **`JSON`** This type checks if is a valid JSON
 - **`ISODate`** This type checks if is a valid ISO Date
+- **`integer`** This type checks if is a integer number
+- **`positive`** This type checks if is a positive number
+- **`positiveOrZero`** This type checks if is a positive number or Zero
+- **`objectId12`** This type checks if is a ObjectId with 12 characters
+- **`objectId24`** This type checks if is a ObjectId with 24 characters
+- **`UUID`** This type checks if is a V4 UUID
 
 ## Usage
 ```js
