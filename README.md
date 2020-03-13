@@ -13,8 +13,8 @@ npm install @janiscommerce/superstruct
 The custom types that you can use in addition to the superstruct are:
 - **`email`** This type checks if is a valid email
 - **`URL`** This type checks if is a valid URL
-- **`empty`** This type checks if the string is empty
-- **`!empty`** This type checks if the string is not empty
+- **`empty`** This type checks if it's an empty string, array or a falsy value
+- **`!empty`** This type checks if it's not an empty string, array or a falsy value
 - **`lowercase`** This type checks if is a valid lowercase string
 - **`uppercase`** This type checks if is a valid uppercase string
 - **`camelcase`** This type checks if is a valid camelcase string
@@ -24,9 +24,8 @@ The custom types that you can use in addition to the superstruct are:
 - **`ISODate`** This type checks if is a valid ISO Date
 - **`integer`** This type checks if is a integer number
 - **`positive`** This type checks if is a positive number
-- **`positiveOrZero`** This type checks if is a positive number or Zero
-- **`objectId12`** This type checks if is a ObjectId with 12 characters
-- **`objectId24`** This type checks if is a ObjectId with 24 characters
+- **`positiveOrZero`** This type checks if is a positive number or zero
+- **`objectId`** This type checks if is a ObjectId with 24 characters
 - **`UUID`** This type checks if is a V4 UUID
 
 ## Usage

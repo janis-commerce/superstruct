@@ -346,48 +346,26 @@ describe('Superstruct', () => {
 	});
 
 
-	describe('Object ID 24 characters', () => {
-		const Schema = struct({ objectId24: 'objectId24' });
+	describe('ObjectID', () => {
+		const Schema = struct({ objectId: 'objectId' });
 
 		it('Should not throw when it is a valid ObjectId', () => {
-			Schema({ objectId24: '5d4d8f743a3cd7a03d9e6428' });
+			Schema({ objectId: '5d4d8f743a3cd7a03d9e6428' });
 		});
 
 		it('Should throw when it is not a string', () => {
-			assert.throws(() => Schema({ objectId24: 123445665475764590823907 }), Error);
-			assert.throws(() => Schema({ objectId24: true }), Error);
-			assert.throws(() => Schema({ objectId24: {} }), Error);
-			assert.throws(() => Schema({ objectId24: ['5d4d8f743a3cd7a03d9e6428'] }), Error);
+			assert.throws(() => Schema({ objectId: 123445665475764590823907 }), Error);
+			assert.throws(() => Schema({ objectId: true }), Error);
+			assert.throws(() => Schema({ objectId: {} }), Error);
+			assert.throws(() => Schema({ objectId: ['5d4d8f743a3cd7a03d9e6428'] }), Error);
 		});
 
 		it('Should throw when it is not an hex ID', () => {
-			assert.throws(() => Schema({ objectId24: '1Bcd3F4bCDefA8cdE7aBcdeG' }), Error);
-			assert.throws(() => Schema({ objectId24: '5d4d8f743a3cd7a03d9e642' }), Error);
-			assert.throws(() => Schema({ objectId24: '5d4d8f743a3cd7a03d9e64288' }), Error);
+			assert.throws(() => Schema({ objectId: '1Bcd3F4bCDefA8cdE7aBcdeG' }), Error);
+			assert.throws(() => Schema({ objectId: '5d4d8f743a3cd7a03d9e642' }), Error);
+			assert.throws(() => Schema({ objectId: '5d4d8f743a3cd7a03d9e64288' }), Error);
 		});
 	});
-
-	describe('Object ID 12 characters', () => {
-		const Schema = struct({ objectId12: 'objectId12' });
-
-		it('Should not throw when it is a valid ObjectId', () => {
-			Schema({ objectId12: '5d4d8f743a3c' });
-		});
-
-		it('Should throw when it is not a string', () => {
-			assert.throws(() => Schema({ objectId12: 123445665475 }), Error);
-			assert.throws(() => Schema({ objectId12: true }), Error);
-			assert.throws(() => Schema({ objectId12: {} }), Error);
-			assert.throws(() => Schema({ objectId12: ['5d4d8f743a3c'] }), Error);
-		});
-
-		it('Should throw when it is not an hex ID', () => {
-			assert.throws(() => Schema({ objectId12: '5d4d8f743a3cD' }), Error);
-			assert.throws(() => Schema({ objectId12: '5d4d8f743a3Z' }), Error);
-			assert.throws(() => Schema({ objectId12: '5d4d8f743a3' }), Error);
-		});
-	});
-
 
 	describe('UUID', () => {
 		const Schema = struct({ UUID: 'UUID' });
