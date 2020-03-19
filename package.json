@@ -33,6 +33,6 @@
     "test": "tests"
   },
   "dependencies": {
-    "superstruct": "^0.6.2"
+    "superstruct": "0.6.2"
   }
 }
