@@ -1,7 +1,9 @@
 # superstruct
 
-[![Build Status](https://travis-ci.org/janis-commerce/superstruct.svg?branch=master)](https://travis-ci.org/janis-commerce/superstruct)
+![Build Status](https://github.com/janis-commerce/superstruct/workflows/Build%20Status/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/janis-commerce/superstruct/badge.svg?branch=master)](https://coveralls.io/github/janis-commerce/superstruct?branch=master)
+[![npm version](https://badge.fury.io/js/%40janiscommerce%2Fsuperstruct.svg)](https://www.npmjs.com/package/@janiscommerce/superstruct)
+
 
 The following package complements the [superstruct](https://github.com/ianstormtaylor/superstruct) package, the same adds some methods to easily validate different types of data
 
@@ -27,6 +29,7 @@ The custom types that you can use in addition to the superstruct are:
 - **`positiveOrZero`** This type checks if is a positive number or zero
 - **`objectId`** This type checks if is a ObjectId with 24 characters
 - **`UUID`** This type checks if is a V4 UUID
+- **`hexColor`** This type checks if is a Hexadecimal Color
 
 ## Usage
 ```js
@@ -37,7 +40,8 @@ const userStruct = struct({
 	email: 'email',
 	age: 'number',
 	password: 'md5',
-	image: 'URL'
+	image: 'URL',
+	mainColor: 'hexColor
 });
 
 const userData = {
@@ -45,7 +49,8 @@ const userData = {
 	email: 'emai@asd.com',
 	age: 28,
 	password: 'be5b0158b79c90c8358990f34ec18d43',
-	image: 'https://gravatar.com/avatar/23463b99b62a72f26ed677cc556c44e8?s=200'
+	image: 'https://gravatar.com/avatar/23463b99b62a72f26ed677cc556c44e8?s=200',
+	hexColor: '#123456'
 };
 
 userStruct(userData);

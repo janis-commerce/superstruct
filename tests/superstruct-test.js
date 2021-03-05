@@ -392,4 +392,24 @@ describe('Superstruct', () => {
 		});
 	});
 
+	describe('hexColor', () => {
+		const Schema = struct({ hexColor: 'hexColor' });
+
+		it('Should not throw when it is a valid Hexadecimal Color', () => {
+			Schema({ hexColor: '#123456' });
+			Schema({ hexColor: '#FFFFFF' });
+		});
+
+		it('Should throw for non Hexadecimal Color', () => {
+			assert.throws(() => Schema({ hexColor: 'A nice color' }), Error);
+			assert.throws(() => Schema({ hexColor: '#123' }), Error);
+			assert.throws(() => Schema({ hexColor: '255, 0, 0' }), Error);
+			assert.throws(() => Schema({ hexColor: 1 }), Error);
+			assert.throws(() => Schema({ hexColor: null }), Error);
+			assert.throws(() => Schema({ hexColor: undefined }), Error);
+			assert.throws(() => Schema({ hexColor: [] }), Error);
+			assert.throws(() => Schema({ hexColor: {} }), Error);
+		});
+	});
+
 });
