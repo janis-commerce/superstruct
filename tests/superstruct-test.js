@@ -361,6 +361,8 @@ describe('Superstruct', () => {
 		});
 
 		it('Should throw when it is not an hex ID', () => {
+			// Uppercase object ids note allowed
+			assert.throws(() => Schema({ objectId: '5D4D8F743A3CD7A03D9E6428' }), Error);
 			assert.throws(() => Schema({ objectId: '1Bcd3F4bCDefA8cdE7aBcdeG' }), Error);
 			assert.throws(() => Schema({ objectId: '5d4d8f743a3cd7a03d9e642' }), Error);
 			assert.throws(() => Schema({ objectId: '5d4d8f743a3cd7a03d9e64288' }), Error);
