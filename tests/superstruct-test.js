@@ -262,7 +262,6 @@ describe('Superstruct', () => {
 		});
 	});
 
-
 	describe('integer', () => {
 
 		const Schema = struct({ integer: 'integer' });
@@ -345,7 +344,6 @@ describe('Superstruct', () => {
 		});
 	});
 
-
 	describe('ObjectID', () => {
 		const Schema = struct({ objectId: 'objectId' });
 
@@ -376,6 +374,7 @@ describe('Superstruct', () => {
 			// v4 examples
 			Schema({ UUID: 'a42ad1cd-84d1-4229-bfd6-6e9837c00549' });
 			Schema({ UUID: 'd9d110ce-8b55-4576-91e9-5eac187e8136' });
+			Schema({ UUID: crypto.randomUUID() });
 		});
 
 		it('Should throw for non v4 UUID', () => {
