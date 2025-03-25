@@ -44,6 +44,7 @@ describe('Superstruct', () => {
 			Schema({ url: 'http://www.example.com' });
 			Schema({ url: 'http://www.example.com.ar' });
 			Schema({ url: 'https://www.example.com.ar' });
+			Schema({ url: 'https://www.example.com.ar/url with spaces' });
 		});
 
 		it('Should throw for non URL', () => {
