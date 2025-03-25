@@ -55,9 +55,9 @@ module.exports = {
 		'func-names': 0,
 
 		'space-before-function-paren': ['error', {
-			'anonymous': 'never',
-			'named': 'never',
-			'asyncArrow': 'always'
+			anonymous: 'never',
+			named: 'never',
+			asyncArrow: 'always'
 		}],
 
 		'arrow-parens': ['error', 'as-needed'],
@@ -117,6 +117,7 @@ module.exports = {
 			ObjectExpression: { minProperties: 5, multiline: true, consistent: true },
 			ObjectPattern: { minProperties: 5, multiline: true, consistent: true }
 		}],
-		'nonblock-statement-body-position': ['error', 'below', { overrides: { else: 'any' } }]
+		'nonblock-statement-body-position': ['error', 'below', { overrides: { else: 'any' } }],
+		strict: ['error', 'global']
 	}
 };

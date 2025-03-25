@@ -353,6 +353,7 @@ describe('Superstruct', () => {
 		});
 
 		it('Should throw when it is not a string', () => {
+			// eslint-disable-next-line no-loss-of-precision
 			assert.throws(() => Schema({ objectId: 123445665475764590823907 }), Error);
 			assert.throws(() => Schema({ objectId: true }), Error);
 			assert.throws(() => Schema({ objectId: {} }), Error);

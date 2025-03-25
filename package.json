@@ -18,13 +18,13 @@
   "license": "ISC",
   "homepage": "https://github.com/janis-commerce/superstruct.git#readme",
   "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.31.0",
     "husky": "^4.3.5",
-    "eslint": "^7.21.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.22.1",
-    "mocha": "^8.3.0",
+    "mocha": "^10.8.2",
     "nyc": "^15.1.0",
-    "sinon": "^9.2.4"
+    "sinon": "^15.2.0"
   },
   "files": [
     "lib/"
